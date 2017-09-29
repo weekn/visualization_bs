@@ -1,6 +1,10 @@
 package com.nfjd.controller;
 
 
+import java.sql.Array;
+
+import javax.servlet.ServletResponse;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -8,11 +12,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nfjd.model.CustomerModel;
+import com.nfjd.model.DataTablePageCtrlModel;
+import com.nfjd.model.UserModel;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 public class SyController {
-	@RequestMapping(value = "/users/{username}",method = RequestMethod.GET,consumes="application/json")
-	public String getUser(@PathVariable String username, @RequestParam String pwd){
-        return "Welcome,"+username;
+	@RequestMapping(value = "/customers",method = RequestMethod.GET)
+	public DataTablePageCtrlModel getUser(DataTablePageCtrlModel datatablePageCtrl){
+		ObjectMapper objectMapper=new ObjectMapper();
+		
+		System.out.println(datatablePageCtrl.getLength()+"   "+datatablePageCtrl.getStart());
+		
+		CustomerModel[] cms={new CustomerModel(),new CustomerModel(), new CustomerModel(),new CustomerModel(),new CustomerModel(),
+		                     new CustomerModel(),new CustomerModel(), new CustomerModel(),new CustomerModel(),new CustomerModel()};
+		datatablePageCtrl.setData(cms);
+		String str="err";
+		try {
+			str = objectMapper.writeValueAsString(cms);
+		} catch (JsonProcessingException e) {
+			
+			e.printStackTrace();
+		}
+		System.out.println(" str--------:    "+str);
+        return datatablePageCtrl;
+        
     }
     public String index(){
 		 return "Welcome,";
