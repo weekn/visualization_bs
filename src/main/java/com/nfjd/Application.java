@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ import org.springframework.web.filter.CorsFilter;
 @RestController
 @EnableAutoConfiguration
 @SpringBootApplication
-public class Application implements EmbeddedServletContainerCustomizer {  
+public class Application extends SpringBootServletInitializer implements EmbeddedServletContainerCustomizer {  
 	 @RequestMapping("/weekn")
      String home() {
          return "Hello World,i m visulization bs!";

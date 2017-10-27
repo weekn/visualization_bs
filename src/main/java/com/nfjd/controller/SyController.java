@@ -5,6 +5,7 @@ import java.sql.Array;
 
 import javax.servlet.ServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nfjd.dao.imp.UserDaoImpl;
 import com.nfjd.model.CustomerModel;
 import com.nfjd.model.DataTablePageCtrlModel;
 import com.nfjd.model.UserModel;
@@ -19,6 +21,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 public class SyController {
+	@Autowired  
+	private UserDaoImpl dimp;
+	
+	
 	@RequestMapping(value = "/customers",method = RequestMethod.GET)
 	public DataTablePageCtrlModel getUser(DataTablePageCtrlModel datatablePageCtrl){
 		ObjectMapper objectMapper=new ObjectMapper();
@@ -37,6 +43,18 @@ public class SyController {
 		}
 		System.out.println(" str--------:    "+str);
         return datatablePageCtrl;
+        
+    }
+	
+	
+	@RequestMapping(value = "/putUser",method = RequestMethod.GET)
+	public String putUser(UserModel user){
+		//UserDaoImpl dimp=new UserDaoImpl();
+		//UserModel user =new UserModel();
+		//user.setAccount("weekn");
+		user.setPwd("pppwwwwdddd");
+		dimp.saveUser(user);
+        return null;
         
     }
     public String index(){
