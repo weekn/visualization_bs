@@ -1,23 +1,32 @@
 package com.nfjd.model;
 
+import java.util.List;
+
 public class DataTablePageCtrlModel {
-	private String start;
-	private Object [] data;
+	private int start;
+	private List<Object>  data;
 	private int draw;
 	private int recordsTotal=100;
 	private int recordsFiltered=100;
-	private String length;
-	public String getStart() {
-		return start;
-	}
-	public void setStart(String start) {
-		this.start = start;
-	}
-	public Object[] getData() {
+	private int length;
+	
+	public List<Object> getData() {
 		return data;
 	}
-	public void setData(Object[] data) {
+	public void setData(List<Object> data) {
 		this.data = data;
+	}
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
+	}
+	public int getDraw() {
+		return draw;
+	}
+	public void setDraw(int draw) {
+		this.draw = draw;
 	}
 	public int getRecordsTotal() {
 		return recordsTotal;
@@ -31,18 +40,13 @@ public class DataTablePageCtrlModel {
 	public void setRecordsFiltered(int recordsFiltered) {
 		this.recordsFiltered = recordsFiltered;
 	}
-	public String getLength() {
+	public int getLength() {
 		return length;
 	}
-	public void setLength(String length) {
+	public void setLength(int length) {
 		this.length = length;
 	}
-	public int getDraw() {
-		return draw;
-	}
-	public void setDraw(int draw) {
-		this.draw = draw;
-	}
+	
 	
 	
 }
