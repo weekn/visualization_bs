@@ -18,7 +18,7 @@ public class HotController {
 	
 	@RequestMapping(value = "/tourist/{province}/region/hot",method = RequestMethod.GET)//每个地区的热度
 	public List<MapValueModel> getSpotsRegionHot(@PathVariable String province){
-        return service.getSpotsRegionHot();       
+        return service.getSpotsRegionHot(province);       
     }
 	
 	@RequestMapping(value = "/tourist/{province}/spots/hot",method = RequestMethod.GET)//每个景点的热度
@@ -27,6 +27,6 @@ public class HotController {
 		if(num==null){
 			num=10;
 		}
-        return service.getSpotsHot(num);       
+        return service.getSpotsHot(num,province);       
     }
 }

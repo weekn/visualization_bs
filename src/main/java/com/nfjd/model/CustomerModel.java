@@ -1,67 +1,63 @@
 package com.nfjd.model;
 
-import java.util.Random;
 
 public class CustomerModel {
-	private String name;
-	
-	public CustomerModel(){
-		Random random = new Random();
-		String [] names={"john","weekn","mike","tom"};
-		String [] phones={"1380266986","1380266986","1342266986","1380567986"};
-		String [] attributions={"天河","越秀","荔湾","番禺"};
-		String [] locations={"白云山","龙头山","井冈山","火炉山"};
-		String [] sexs={"男","女"};
-		this.name =names[random.nextInt(4)];
-		this.phone=phones[random.nextInt(4)];
-		this.attribution=attributions[random.nextInt(4)];
-		this.location=locations[random.nextInt(4)];
-		this.sex=sexs[random.nextInt(2)];
-		this.age=random.nextInt(60);
+	private String msisdn;//加密后的手机号
+	private String statist_month;
+	private String cmcc_prov_prvd_id;//省份
+	private String ascription;//归属地
+	private String gender;
+	private String age;
+	private String resident_area;//常住小区
+	private String is_high_value;//是否该价值用户
+	public String getMsisdn() {
+		return msisdn;
 	}
-	
-	public String getName() {
-		return name;
+	public void setMsisdn(String msisdn) {
+		this.msisdn = msisdn;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public String getStatist_month() {
+		return statist_month;
 	}
-	public String getPhone() {
-		return phone;
+	public void setStatist_month(String statist_month) {
+		this.statist_month = statist_month;
 	}
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public String getCmcc_prov_prvd_id() {
+		return cmcc_prov_prvd_id;
 	}
-	public String getSex() {
-		return sex;
+	public void setCmcc_prov_prvd_id(String cmcc_prov_prvd_id) {
+		this.cmcc_prov_prvd_id = cmcc_prov_prvd_id;
 	}
-	public void setSex(String sex) {
-		this.sex = sex;
+	public String getAscription() {
+		return ascription;
 	}
-	public String getLocation() {
-		return location;
+	public void setAscription(String ascription) {
+		this.ascription = ascription;
 	}
-	public void setLocation(String location) {
-		this.location = location;
+	public String getGender() {
+		return gender;
 	}
-	public String getAttribution() {
-		return attribution;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
-	public void setAttribution(String attribution) {
-		this.attribution = attribution;
-	}
-	private String phone;
-	private String sex;
-	private String location;
-	private String attribution;
-	private int age;
-
-	public int getAge() {
+	public String getAge() {
 		return age;
 	}
-
-	public void setAge(int age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
+	public String getResident_area() {
+		return resident_area;
+	}
+	public void setResident_area(String resident_area) {
+		this.resident_area = resident_area;
+	}
+	public String getIs_high_value() {
+		return is_high_value;
+	}
+	public void setIs_high_value(String is_high_value) {
+		this.is_high_value = is_high_value;
+	}
+	
 	
 }

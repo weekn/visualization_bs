@@ -16,13 +16,13 @@
 </resultMap>
 
 <select id="getSpotsRegionHot" resultMap="MapValueModel">
-   select city_nm as name, sum(total_tourist) as value from test_3  where cmcc_prov_prvd_id=13000 group by city_nm
+   select city_nm as name, sum(total_tourist) as value from test_3  where cmcc_prov_prvd_id=#{province} group by city_nm
 </select>
 
 <select id="getSpotsHot" resultMap="MapValueModel">
    select scenic_name as name ,sum(total_tourist) as value from test_3 
    <where>
-	   cmcc_prov_prvd_id=13000 
+	   cmcc_prov_prvd_id=#{province} 
 	   group by scenic_name  
 	   ORDER BY value desc
 	   limit #{num}
@@ -31,14 +31,16 @@
 </select>
 
 <select id="getProfileGender" resultMap="MapValueModel">
-   select gender as name,sum(total_tourist)as value from test_3  where cmcc_prov_prvd_id=13000 group by gender
+   select gender as name,sum(total_tourist)as value from test_3  where cmcc_prov_prvd_id=#{province} group by gender
 </select>
 
 <select id="getProfileAge" resultMap="MapValueModel">
-   select age_stage as name,sum(total_tourist)as value from test_3 where cmcc_prov_prvd_id=13000 group by age_stage
+   select age_stage as name,sum(total_tourist)as value from test_3 where cmcc_prov_prvd_id=#{province} group by age_stage
 </select>
 <select id="getTourists" resultMap="TouristModel">
-	select * from visual_st_cenic_tour_table_info limit #{start},#{num}
+	select * from visual_st_cenic_tour_table_info where cmcc_prov_prvd_id=#{province} limit #{start},#{num}
 </select>
-
+<select id="geCountTourists" resultType="java.lang.Integer">
+	select count(*) from visual_st_cenic_tour_table_info where cmcc_prov_prvd_id=#{province} 
+</select>
 </mapper>

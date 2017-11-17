@@ -6,11 +6,12 @@ import org.apache.ibatis.annotations.Param;
 import com.nfjd.model.MapValueModel;
 import com.nfjd.model.TouristModel;
 public interface TouristMapper {
-	List<MapValueModel>  getSpotsRegionHot();
-	List<MapValueModel>  getSpotsHot(@Param(value="num")int num);
-	List<MapValueModel>  getProfileGender();
-	List<MapValueModel>  getProfileAge();
+	public List<MapValueModel>  getSpotsRegionHot(@Param(value="province")String province);
+	public List<MapValueModel>  getSpotsHot(@Param(value="num")int num,@Param(value="province")String province);
+	public List<MapValueModel>  getProfileGender(@Param(value="province")String province);
+	public List<MapValueModel>  getProfileAge(@Param(value="province")String province);
 	
-	List<Object>  getTourists(@Param(value="start")int start,@Param(value="num")int num);
+	public List<Object>  getTourists(@Param(value="province")String province,@Param(value="start")int start,@Param(value="num")int num);
+	public int geCountTourists(@Param(value="province")String province);
 	
 }

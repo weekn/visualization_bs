@@ -1,22 +1,24 @@
-package com.nfjd.service.traveller;
+package com.nfjd.service.broadband;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nfjd.mapper.TouristMapper;
-import com.nfjd.mapper.UserMapper;
+import com.nfjd.mapper.BroadbandMapper;
+import com.nfjd.model.CustomerModel;
 import com.nfjd.model.DataTablePageCtrlModel;
+import com.nfjd.model.LocationModel;
 import com.nfjd.model.MapValueModel;
-import com.nfjd.model.TouristModel;
-import com.nfjd.model.UserModel;
+
 import com.nfjd.tools.ProvinceMapperTool;
 
 @Service
-public class TouristService {
+public class BbCustomerService {
+	
 	@Autowired
-	private TouristMapper mapper;
+	private BroadbandMapper mapper;
 	
 	public List<MapValueModel> getProfileGender(String province){
 		List<MapValueModel> mv_list=mapper.getProfileGender(ProvinceMapperTool.getProvinceId(province));
@@ -34,25 +36,39 @@ public class TouristService {
         return mv_list;
     }
 	
-	public DataTablePageCtrlModel getTourist(DataTablePageCtrlModel datatablePageCtrl,String province){
+	public DataTablePageCtrlModel getCustomers(DataTablePageCtrlModel datatablePageCtrl,String province) {
 		int start=datatablePageCtrl.getStart();
 		int num=datatablePageCtrl.getLength();
-		List<Object> tm=mapper.getTourists(ProvinceMapperTool.getProvinceId(province),start, num);
-		int sum=mapper.geCountTourists(ProvinceMapperTool.getProvinceId(province));
-		System.out.println("--------getTourist---  "+sum);
-		datatablePageCtrl.setData(dealTourists(tm));
+		List<Object> tm=mapper.getCustomers(null,start, num);
+		int sum=mapper.geCountCustomers(null);
+	
+		datatablePageCtrl.setData(dealCustomers(tm));
 		datatablePageCtrl.setRecordsTotal(sum);
 		return datatablePageCtrl;
+		
 	}
-	private List<Object> dealTourists(List<Object> tm_list){
+	
+	
+	
+	private List<Object> dealCustomers(List<Object> tm_list){
 		for(Object tm:tm_list){
-			((TouristModel) tm).setGender(dealGenderName(((TouristModel) tm).getGender()));
-			((TouristModel) tm).setCmcc_prov_prvd_id(ProvinceMapperTool.getProvincefromId(((TouristModel) tm).getCmcc_prov_prvd_id()));
+			((CustomerModel) tm).setGender(dealGenderName(((CustomerModel) tm).getGender()));
+			((CustomerModel) tm).setAge(dealAgeName(((CustomerModel) tm).getAge()));
+			((CustomerModel) tm).setIs_high_value(dealHighCustomer(((CustomerModel) tm).getIs_high_value()));
 		}
 		return tm_list;
 	}
 	
-	private String dealAgeName(String name){
+	
+	private String dealHighCustomer(String name) {
+		if(name.equals("1")) {
+			return "高价值用户";
+		}else {
+			return "非高价值用户";
+		}
+	}
+	
+ 	private String dealAgeName(String name){
 		String res = null;
 		switch(name){
 			case "0":

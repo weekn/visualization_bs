@@ -9,44 +9,69 @@ import com.nfjd.mapper.TouristMapper;
 import com.nfjd.mapper.UserMapper;
 import com.nfjd.model.MapValueModel;
 import com.nfjd.model.UserModel;
+import com.nfjd.tools.ProvinceMapperTool;
 
 @Service
 public class HotService {
 	@Autowired
 	private TouristMapper mapper;
 	
-	public List<MapValueModel> getSpotsRegionHot(){
-		List<MapValueModel> mv_list=mapper.getSpotsRegionHot();
+	public List<MapValueModel> getSpotsRegionHot(String province){
+		List<MapValueModel> mv_list=mapper.getSpotsRegionHot(ProvinceMapperTool.getProvinceId(province));
 		for (MapValueModel mm:mv_list){
-			mm.setName(dealRegionName(mm.getName()));
+			mm.setName(dealRegionName(mm.getName(),province));
 		}
         return mv_list;
     }
 	
-	public List<MapValueModel> getSpotsHot(int num){
-		List<MapValueModel> mv_list=mapper.getSpotsHot(num);
-		for (MapValueModel mm:mv_list){
-			mm.setName(dealRegionName(mm.getName()));
-		}
+	public List<MapValueModel> getSpotsHot(int num,String province){
+		
+		List<MapValueModel> mv_list=mapper.getSpotsHot(num,ProvinceMapperTool.getProvinceId(province));
+		
         return mv_list;
     }
 	
-	private String dealRegionName(String name){
-		String res;
-		switch(name){
-			case "阿坝":
-				res="阿坝藏族羌族自治州";
-				break;
-			case "甘孜":
-				res="甘孜藏族自治州";
-				break;
-			case "凉山":
-				res="凉山彝族自治州";
-				break;
-			default:
-				res=name+"市";
-				break;
+	private String dealRegionName(String name,String province){
+		String res = null;
+		if(province.equals("sichuan")){
+			switch(name){
+				case "阿坝":
+					res="阿坝藏族羌族自治州";
+					break;
+				case "甘孜":
+					res="甘孜藏族自治州";
+					break;
+				case "凉山":
+					res="凉山彝族自治州";
+					break;
+				default:
+					res=name+"市";
+					break;
+			}
+		}else if(province.equals("qinghai")){
+			System.out.println("---------------------------  "+province+"  "+name);
+			switch(name){
+				case "海北市":
+					res="海北藏族自治州";
+					break;
+				case "海西市":
+					res="海西蒙古族藏族自治州";
+					break;
+				case "玉树市":
+					res="玉树藏族自治州";
+					break;
+				case "黄南市":
+					res="黄南藏族自治州";
+					break;
+				default:
+					res=name+"市";
+					break;
+			}
+		}else{
+			res=name;
 		}
+		
+		
 		return res;
 	}
 
@@ -70,5 +95,6 @@ public class HotService {
 //	 {"name":"遂宁","value":2296.0},
 //	 {"name":"阿坝","value":667.0},
 //	 {"name":"雅安","value":1262.0}]
+
 }
 
